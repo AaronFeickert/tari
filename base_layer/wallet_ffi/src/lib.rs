@@ -887,7 +887,7 @@ pub unsafe extern "C" fn public_key_create(bytes: *mut ByteVector, error_out: *m
         return ptr::null_mut();
     }
     let v = (*bytes).0.clone();
-    let pk = TariPublicKey::from_bytes(&v);
+    let pk = TariPublicKey::from_canonical_bytes(&v);
     match pk {
         Ok(pk) => Box::into_raw(Box::new(pk)),
         Err(e) => {
@@ -1340,7 +1340,7 @@ pub unsafe extern "C" fn commitment_and_public_signature_create_from_bytes(
         return ptr::null_mut();
     }
 
-    let ephemeral_commitment = match Commitment::from_bytes(&(*ephemeral_commitment_bytes).0.clone()) {
+    let ephemeral_commitment = match Commitment::from_canonical_bytes(&(*ephemeral_commitment_bytes).0.clone()) {
         Ok(ephemeral_commitment) => ephemeral_commitment,
         Err(e) => {
             error!(
@@ -1352,7 +1352,7 @@ pub unsafe extern "C" fn commitment_and_public_signature_create_from_bytes(
             return ptr::null_mut();
         },
     };
-    let ephemeral_pubkey = match PublicKey::from_bytes(&(*ephemeral_pubkey_bytes).0.clone()) {
+    let ephemeral_pubkey = match PublicKey::from_canonical_bytes(&(*ephemeral_pubkey_bytes).0.clone()) {
         Ok(ephemeral_pubkey) => ephemeral_pubkey,
         Err(e) => {
             error!(
@@ -1365,7 +1365,7 @@ pub unsafe extern "C" fn commitment_and_public_signature_create_from_bytes(
         },
     };
 
-    let u_a = match TariPrivateKey::from_bytes(&(*u_a_bytes).0.clone()) {
+    let u_a = match TariPrivateKey::from_canonical_bytes(&(*u_a_bytes).0.clone()) {
         Ok(u) => u,
         Err(e) => {
             error!(
@@ -1377,7 +1377,7 @@ pub unsafe extern "C" fn commitment_and_public_signature_create_from_bytes(
             return ptr::null_mut();
         },
     };
-    let u_x = match TariPrivateKey::from_bytes(&(*u_x_bytes).0.clone()) {
+    let u_x = match TariPrivateKey::from_canonical_bytes(&(*u_x_bytes).0.clone()) {
         Ok(u) => u,
         Err(e) => {
             error!(
@@ -1389,7 +1389,7 @@ pub unsafe extern "C" fn commitment_and_public_signature_create_from_bytes(
             return ptr::null_mut();
         },
     };
-    let u_y = match TariPrivateKey::from_bytes(&(*u_y_bytes).0.clone()) {
+    let u_y = match TariPrivateKey::from_canonical_bytes(&(*u_y_bytes).0.clone()) {
         Ok(u) => u,
         Err(e) => {
             error!(
@@ -1953,7 +1953,7 @@ pub unsafe extern "C" fn private_key_create(bytes: *mut ByteVector, error_out: *
         return ptr::null_mut();
     }
     let v = (*bytes).0.clone();
-    let pk = TariPrivateKey::from_bytes(&v);
+    let pk = TariPrivateKey::from_canonical_bytes(&v);
     match pk {
         Ok(pk) => Box::into_raw(Box::new(pk)),
         Err(e) => {

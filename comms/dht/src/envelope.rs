@@ -224,7 +224,7 @@ impl TryFrom<DhtHeader> for DhtMessageHeader {
             None
         } else {
             Some(
-                CommsPublicKey::from_bytes(&header.ephemeral_public_key)
+                CommsPublicKey::from_canonical_bytes(&header.ephemeral_public_key)
                     .map_err(|_| DhtMessageError::InvalidEphemeralPublicKey)?,
             )
         };
@@ -368,7 +368,7 @@ impl TryFrom<Destination> for NodeDestination {
         match destination {
             Destination::Unknown(_) => Ok(NodeDestination::Unknown),
             Destination::PublicKey(pk) => {
-                CommsPublicKey::from_bytes(&pk).map(|pk| NodeDestination::PublicKey(Box::new(pk)))
+                CommsPublicKey::from_canonical_bytes(&pk).map(|pk| NodeDestination::PublicKey(Box::new(pk)))
             },
         }
     }

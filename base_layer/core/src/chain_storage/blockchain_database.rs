@@ -31,7 +31,9 @@ use std::{
     time::Instant,
 };
 
+use blake2::Blake2b;
 use croaring::Bitmap;
+use digest::consts::U32;
 use log::*;
 use serde::{Deserialize, Serialize};
 use tari_common_types::{
@@ -1392,7 +1394,7 @@ pub fn calculate_mmr_roots<T: BlockchainBackend>(
 
 pub fn calculate_validator_node_mr(validator_nodes: &[(PublicKey, [u8; 32])]) -> tari_mmr::Hash {
     fn hash_node((pk, s): &(PublicKey, [u8; 32])) -> Vec<u8> {
-        DomainSeparatedConsensusHasher::<TransactionHashDomain>::new("validator_node")
+        DomainSeparatedConsensusHasher::<TransactionHashDomain, Blake2b<U32>>::new("validator_node")
             .chain(pk)
             .chain(s)
             .finalize()
