@@ -239,15 +239,6 @@ impl TariScript {
         self.script.iter().map(|op| op.to_string()).collect()
     }
 
-    /// Calculate the message hash that CHECKSIG uses to verify signatures
-    pub fn script_message(&self, pub_key: &RistrettoPublicKey) -> Result<RistrettoSecretKey, ScriptError> {
-        let b = Blake2b::<U64>::default()
-            .chain_update(pub_key.as_bytes())
-            .chain_update(self.to_bytes())
-            .finalize();
-        RistrettoSecretKey::from_uniform_bytes(b.as_slice()).map_err(|_| ScriptError::InvalidSignature)
-    }
-
     // pending updates to Dalek/Digest
     fn execute_opcode(
         &self,
