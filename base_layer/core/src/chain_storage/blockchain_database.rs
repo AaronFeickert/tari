@@ -820,7 +820,9 @@ where B: BlockchainBackend
         // to increase the timestamp to be greater than the median timestamp otherwise the block wont be accepted by
         // nodes
         if median_timestamp > header.timestamp {
-            header.timestamp = median_timestamp.increase(1);
+            header.timestamp = median_timestamp
+                .checked_add(EpochTime::from(1))
+                .ok_or(ChainStorageError::OutOfRange)?;
         }
         let mut block = Block { header, body };
         let roots = calculate_mmr_roots(&*db, self.rules(), &block)?;

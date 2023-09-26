@@ -140,7 +140,7 @@ pub mod test {
                 "with timestamp = {}",
                 timestamp
             );
-            timestamp = timestamp.increase(1);
+            timestamp = timestamp.checked_add(EpochTime::from(1)).unwrap();
             core_header.timestamp = timestamp;
             hasher.set_forward_timestamp(timestamp.as_u64());
         }
