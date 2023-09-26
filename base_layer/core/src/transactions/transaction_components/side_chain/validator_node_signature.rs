@@ -50,7 +50,7 @@ impl ValidatorNodeSignature {
         let (secret_nonce, public_nonce) = PublicKey::random_keypair(&mut OsRng);
         let public_key = PublicKey::from_secret_key(private_key);
         let challenge = Self::construct_challenge(&public_key, &public_nonce, msg);
-        let signature = Signature::sign_raw_wide(private_key, secret_nonce, &challenge)
+        let signature = Signature::sign_raw_uniform(private_key, secret_nonce, &challenge)
             .expect("Sign cannot fail with 64-byte challenge and a RistrettoPublicKey");
         Self { public_key, signature }
     }
@@ -65,7 +65,7 @@ impl ValidatorNodeSignature {
 
     pub fn is_valid_signature_for(&self, msg: &[u8]) -> bool {
         let challenge = Self::construct_challenge(&self.public_key, self.signature.get_public_nonce(), msg);
-        self.signature.verify_raw_wide(&self.public_key, &challenge)
+        self.signature.verify_raw_uniform(&self.public_key, &challenge)
     }
 
     pub fn public_key(&self) -> &PublicKey {

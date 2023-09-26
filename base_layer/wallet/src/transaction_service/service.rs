@@ -3082,7 +3082,7 @@ mod tests {
 
             // computing a scanning key `Ks=cG+B` for comparison
             let scanning_key =
-                PublicKey::from_secret_key(&RistrettoSecretKey::from_bytes_wide(c.as_ref()).unwrap()) + big_b;
+                PublicKey::from_secret_key(&RistrettoSecretKey::from_uniform_bytes(c.as_ref()).unwrap()) + big_b;
 
             assert_eq!(provided_spending_key.as_ref(), &sender_spending_key);
             assert_eq!(receiver_spending_key, sender_spending_key);

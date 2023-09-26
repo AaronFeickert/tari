@@ -140,7 +140,7 @@ impl TransactionKernel {
             &self.features,
             &self.burn_commitment,
         );
-        if self.excess_sig.verify_raw_wide(excess, &c) {
+        if self.excess_sig.verify_raw_uniform(excess, &c) {
             Ok(())
         } else {
             Err(TransactionError::InvalidSignatureError(

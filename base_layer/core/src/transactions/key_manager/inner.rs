@@ -559,7 +559,7 @@ where TBackend: KeyManagerBackend<PublicKey> + 'static
                     "metadata_signature_ephemeral_nonce_a",
                 );
                 let a_hash = hasher_a.chain(nonce_private_key.as_bytes()).finalize();
-                PrivateKey::from_bytes_wide(a_hash.as_ref()).map_err(|_| {
+                PrivateKey::from_uniform_bytes(a_hash.as_ref()).map_err(|_| {
                     TransactionError::KeyManagerError("Invalid private key for sender offset private key".to_string())
                 })
             },
@@ -570,7 +570,7 @@ where TBackend: KeyManagerBackend<PublicKey> + 'static
             "metadata_signature_ephemeral_nonce_b",
         );
         let b_hash = hasher_b.chain(nonce_private_key.as_bytes()).finalize();
-        let nonce_b = PrivateKey::from_bytes_wide(b_hash.as_ref()).map_err(|_| {
+        let nonce_b = PrivateKey::from_uniform_bytes(b_hash.as_ref()).map_err(|_| {
             TransactionError::KeyManagerError("Invalid private key for sender offset private key".to_string())
         })?;
         Ok((nonce_a, nonce_b))
@@ -760,7 +760,7 @@ where TBackend: KeyManagerBackend<PublicKey> + 'static
             .chain(spending_private_key.as_bytes())
             .chain(nonce_private_key.as_bytes())
             .finalize();
-        PrivateKey::from_bytes_wide(key_hash.as_ref()).map_err(|_| {
+        PrivateKey::from_uniform_bytes(key_hash.as_ref()).map_err(|_| {
             TransactionError::KeyManagerError("Invalid private key for kernel signature nonce".to_string())
         })
     }
@@ -802,7 +802,7 @@ where TBackend: KeyManagerBackend<PublicKey> + 'static
             kernel_message,
         );
 
-        let signature = Signature::sign_raw_wide(&final_signing_key, private_nonce, &challenge)?;
+        let signature = Signature::sign_raw_uniform(&final_signing_key, private_nonce, &challenge)?;
         Ok(signature)
     }
 

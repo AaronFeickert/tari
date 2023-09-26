@@ -441,7 +441,7 @@ pub async fn send_register_template_transaction_task(
         .chain(&b"")
         .finalize();
 
-    let author_signature = Signature::sign_raw_wide(&author_private_key, secret_nonce, &challenge)
+    let author_signature = Signature::sign_raw_uniform(&author_private_key, secret_nonce, &challenge)
         .expect("Sign cannot fail with 32-byte challenge and a RistrettoPublicKey");
 
     // ----------------------------------------------------------------------------

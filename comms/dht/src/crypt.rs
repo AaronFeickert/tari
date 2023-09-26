@@ -144,7 +144,7 @@ pub fn generate_key_mask(data: &CommsDHKE) -> Result<CommsSecretKey, ByteArrayEr
         GenericArray::from_mut_slice(comms_key_mask.reveal_mut()),
     );
 
-    CommsSecretKey::from_bytes_wide(comms_key_mask.reveal())
+    CommsSecretKey::from_uniform_bytes(comms_key_mask.reveal())
 }
 
 /// Decrypt a message using the `ChaCha20Poly1305` authenticated stream cipher

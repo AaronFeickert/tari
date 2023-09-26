@@ -428,7 +428,7 @@ mod test {
         let r =
             RistrettoSecretKey::from_hex("193ee873f3de511eda8ae387db6498f3d194d31a130a94cdf13dc5890ec1ad0f").unwrap();
         let p = RistrettoPublicKey::from_secret_key(&k);
-        let m = RistrettoSecretKey::from_bytes_wide(&Blake2b::<U64>::digest(b"Hello Tari Script")).unwrap();
+        let m = RistrettoSecretKey::from_uniform_bytes(&Blake2b::<U64>::digest(b"Hello Tari Script")).unwrap();
         let sig = RistrettoSchnorr::sign_raw_canonical(&k, r, m.as_bytes()).unwrap();
         let mut scalar: ScalarValue = [0u8; 32];
         scalar.copy_from_slice(m.as_bytes());

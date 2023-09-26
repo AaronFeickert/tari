@@ -604,7 +604,7 @@ mod test {
             &excess,
             &kernel_message,
         );
-        assert!(sig.verify_raw_wide(&excess, &sig_challenge));
+        assert!(sig.verify_raw_uniform(&excess, &sig_challenge));
 
         // we fix the signature and the excess with the now included offset.
         coinbase_kernel2.excess_sig = sig;

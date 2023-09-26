@@ -109,7 +109,7 @@ where
             .finalize();
 
         let derive_key = derive_key.as_ref();
-        let s = <PK::K>::from_bytes_wide(derive_key)?;
+        let s = <PK::K>::from_uniform_bytes(derive_key)?;
         Ok(s)
     }
 

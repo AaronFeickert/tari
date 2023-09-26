@@ -77,7 +77,7 @@ impl IdentitySignature {
             updated_at,
         )
         .finalize();
-        let signature = Signature::sign_raw_wide(secret_key, secret_nonce, challenge.as_ref())
+        let signature = Signature::sign_raw_uniform(secret_key, secret_nonce, challenge.as_ref())
             .expect("unreachable panic: challenge hash digest is the correct length");
         Self {
             version: Self::LATEST_VERSION,
@@ -122,7 +122,7 @@ impl IdentitySignature {
             self.updated_at,
         )
         .finalize();
-        self.signature.verify_raw_wide(public_key, challenge.as_ref())
+        self.signature.verify_raw_uniform(public_key, challenge.as_ref())
     }
 
     fn construct_challenge<'a, I: IntoIterator<Item = &'a Multiaddr>>(

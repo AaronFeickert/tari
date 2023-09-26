@@ -245,7 +245,7 @@ impl TariScript {
             .chain_update(pub_key.as_bytes())
             .chain_update(self.to_bytes())
             .finalize();
-        RistrettoSecretKey::from_bytes_wide(b.as_slice()).map_err(|_| ScriptError::InvalidSignature)
+        RistrettoSecretKey::from_uniform_bytes(b.as_slice()).map_err(|_| ScriptError::InvalidSignature)
     }
 
     // pending updates to Dalek/Digest

@@ -59,7 +59,7 @@ impl MessageSignature {
         let (nonce_s, nonce_pk) = CommsPublicKey::random_keypair(&mut OsRng);
         let signer_public_key = CommsPublicKey::from_secret_key(&signer_secret_key);
         let challenge = construct_message_signature_hash(&signer_public_key, &nonce_pk, message);
-        let signature = Signature::sign_raw_wide(&signer_secret_key, nonce_s, &challenge)
+        let signature = Signature::sign_raw_uniform(&signer_secret_key, nonce_s, &challenge)
             .expect("challenge is [u8;32] but SchnorrSignature::sign failed");
 
         Self {
@@ -72,7 +72,7 @@ impl MessageSignature {
     pub fn verify(&self, message: &[u8]) -> bool {
         let challenge =
             construct_message_signature_hash(&self.signer_public_key, self.signature.get_public_nonce(), message);
-        self.signature.verify_raw_wide(&self.signer_public_key, &challenge)
+        self.signature.verify_raw_uniform(&self.signer_public_key, &challenge)
     }
 
     /// Consume this instance, returning the public key of the signer.
@@ -157,7 +157,7 @@ mod test {
         let (mut mac, signer_k) = setup();
         let signer_pk = CommsPublicKey::from_secret_key(&signer_k);
         let msg = construct_message_signature_hash(&signer_pk, mac.signature.get_public_nonce(), MSG);
-        let msg_scalar = CommsSecretKey::from_bytes_wide(&msg).unwrap();
+        let msg_scalar = CommsSecretKey::from_uniform_bytes(&msg).unwrap();
 
         // Some `a` key
         let (bad_signer_k, bad_signer_pk) = CommsPublicKey::random_keypair(&mut OsRng);
@@ -181,7 +181,7 @@ mod test {
 
         // Change <R, s> to <R', s>. Note: We need signer_k because the Signature interface does not provide a way to
         // change just the public nonce, an attacker does not need the secret key.
-        mac.signature = Signature::sign_raw_wide(&signer_k, nonce_k, &msg).unwrap();
+        mac.signature = Signature::sign_raw_uniform(&signer_k, nonce_k, &msg).unwrap();
         assert!(!mac.verify(MSG));
     }
 }

@@ -56,7 +56,7 @@ type WalletOutputSpendingKeysDomainHasher = DomainSeparatedHasher<Blake2b<U64>, 
 
 /// Generate an output encryption key from a Diffie-Hellman shared secret
 pub fn shared_secret_to_output_encryption_key(shared_secret: &CommsDHKE) -> Result<PrivateKey, ByteArrayError> {
-    PrivateKey::from_bytes_wide(
+    PrivateKey::from_uniform_bytes(
         WalletOutputEncryptionKeysDomainHasher::new()
             .chain(shared_secret.as_bytes())
             .finalize()
@@ -66,7 +66,7 @@ pub fn shared_secret_to_output_encryption_key(shared_secret: &CommsDHKE) -> Resu
 
 /// Generate an output spending key from a Diffie-Hellman shared secret
 pub fn shared_secret_to_output_spending_key(shared_secret: &CommsDHKE) -> Result<PrivateKey, ByteArrayError> {
-    PrivateKey::from_bytes_wide(
+    PrivateKey::from_uniform_bytes(
         WalletOutputSpendingKeysDomainHasher::new()
             .chain(shared_secret.as_bytes())
             .finalize()
@@ -90,7 +90,7 @@ pub fn stealth_address_script_spending_key(
     destination_public_key: &PublicKey,
 ) -> PublicKey {
     PublicKey::from_secret_key(
-        &PrivateKey::from_bytes_wide(dh_domain_hasher.as_ref())
+        &PrivateKey::from_uniform_bytes(dh_domain_hasher.as_ref())
             .expect("'DomainSeparatedHash<Blake2b<U64>>' has correct size"),
     ) + destination_public_key
 }
