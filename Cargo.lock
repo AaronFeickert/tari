@@ -3032,7 +3032,7 @@ dependencies = [
  "tari_core",
  "tari_crypto",
  "tari_script",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tonic 0.6.2",
  "tonic-build",
@@ -3053,7 +3053,7 @@ dependencies = [
  "tari_common_types",
  "tari_comms",
  "tari_features",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
 ]
@@ -3075,7 +3075,7 @@ dependencies = [
  "tari_contacts",
  "tari_p2p",
  "tari_shutdown",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
 ]
@@ -3122,7 +3122,7 @@ dependencies = [
  "tari_p2p",
  "tari_script",
  "tari_shutdown",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
  "tonic 0.6.2",
@@ -3161,7 +3161,7 @@ dependencies = [
  "tari_comms",
  "tari_core",
  "tari_features",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
  "tonic 0.6.2",
@@ -3199,7 +3199,7 @@ dependencies = [
  "tari_comms",
  "tari_core",
  "tari_crypto",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
  "tonic 0.6.2",
@@ -3217,7 +3217,7 @@ dependencies = [
  "tari_comms",
  "tari_core",
  "tari_crypto",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
 ]
 
@@ -3261,7 +3261,7 @@ dependencies = [
  "tari_service_framework",
  "tari_shutdown",
  "tari_storage",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
  "tonic 0.6.2",
@@ -3317,7 +3317,7 @@ dependencies = [
  "tari_service_framework",
  "tari_shutdown",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -3357,7 +3357,7 @@ dependencies = [
  "tari_service_framework",
  "tari_shutdown",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5477,7 +5477,7 @@ dependencies = [
  "log",
  "serde",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
 ]
@@ -5497,7 +5497,7 @@ dependencies = [
  "serde",
  "tari_common",
  "tari_crypto",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
  "tokio",
 ]
@@ -5540,7 +5540,7 @@ dependencies = [
  "tari_shutdown",
  "tari_storage",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5588,7 +5588,7 @@ dependencies = [
  "tari_shutdown",
  "tari_storage",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5637,7 +5637,7 @@ dependencies = [
  "tari_service_framework",
  "tari_shutdown",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5704,7 +5704,7 @@ dependencies = [
  "tari_shutdown",
  "tari_storage",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5716,7 +5716,7 @@ dependencies = [
 [[package]]
 name = "tari_crypto"
 version = "0.18.0"
-source = "git+https://github.com/AaronFeickert/tari-crypto?branch=scalar-byte-array#8dde0216b6ca305d52d703820481c55ebf7666ba"
+source = "git+https://github.com/AaronFeickert/tari-crypto?branch=scalar-byte-array#e3279bfcb7a6c91875bd206dfb0d344b36f55a41"
 dependencies = [
  "blake2",
  "borsh",
@@ -5730,7 +5730,7 @@ dependencies = [
  "snafu",
  "tari-curve25519-dalek",
  "tari_bulletproofs_plus",
- "tari_utilities 0.5.1",
+ "tari_utilities",
  "zeroize",
 ]
 
@@ -5777,7 +5777,7 @@ dependencies = [
  "tari_p2p",
  "tari_script",
  "tari_shutdown",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "time",
@@ -5813,7 +5813,7 @@ dependencies = [
  "tari_common_types",
  "tari_crypto",
  "tari_service_framework",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5867,7 +5867,7 @@ dependencies = [
  "serde_json",
  "tari_common",
  "tari_crypto",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
 ]
 
@@ -5898,7 +5898,7 @@ dependencies = [
  "tari_shutdown",
  "tari_storage",
  "tari_test_utils",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "tempfile",
  "thiserror",
  "tokio",
@@ -5921,7 +5921,7 @@ dependencies = [
  "sha2 0.10.7",
  "sha3",
  "tari_crypto",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
 ]
 
@@ -5959,7 +5959,7 @@ dependencies = [
  "log",
  "rand",
  "serde",
- "tari_utilities 0.6.0",
+ "tari_utilities",
  "thiserror",
 ]
 
@@ -5974,16 +5974,6 @@ dependencies = [
  "tari_shutdown",
  "tempfile",
  "tokio",
-]
-
-[[package]]
-name = "tari_utilities"
-version = "0.5.1"
-source = "git+https://github.com/AaronFeickert/tari_utilities?branch=byte-array#e8598fc2734897ac36382fd943c087b84c99889f"
-dependencies = [
- "generic-array",
- "snafu",
- "zeroize",
 ]
 
 [[package]]
