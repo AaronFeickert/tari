@@ -71,7 +71,7 @@ pub fn calc_median_timestamp(timestamps: &[EpochTime]) -> EpochTime {
             timestamps[mid_index - 1],
             timestamps[mid_index],
         );
-        // To compute the median, we use `u128` to avoid overflow with the internal `u64` typing
+        // To compute this mean, we use `u128` to avoid overflow with the internal `u64` typing
         // Note that the final cast back to `u64` will never truncate since each summand is bounded by `u64`
         // To make the linter happy, we use `u64::MAX` in the impossible case that the cast fails
         EpochTime::from(
