@@ -5978,9 +5978,9 @@ dependencies = [
 
 [[package]]
 name = "tari_utilities"
-version = "0.6.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d4c2e29d118ffd180fdfeac116923b46d6a5c795a12d9d9f348b97b9d4538aac"
+checksum = "0c396f014de7fa290ea8decd7238df9f1c175f243480a4ebef9ec61f144b1c95"
 dependencies = [
  "base58-monero 0.3.2",
  "base64 0.13.1",
