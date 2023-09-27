@@ -631,7 +631,7 @@ impl TariScript {
     fn handle_to_ristretto_point(&self, stack: &mut ExecutionStack) -> Result<(), ScriptError> {
         let item = stack.pop().ok_or(ScriptError::StackUnderflow)?;
         let scalar = match &item {
-            StackItem::Hash(hash) => hash.as_slice(), // TODO: confirm this isn't problematic
+            StackItem::Hash(hash) => hash.as_slice(),
             StackItem::Scalar(scalar) => scalar.as_slice(),
             _ => return Err(ScriptError::IncompatibleTypes),
         };

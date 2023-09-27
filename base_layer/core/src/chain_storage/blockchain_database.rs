@@ -822,7 +822,7 @@ where B: BlockchainBackend
         if median_timestamp > header.timestamp {
             header.timestamp = median_timestamp
                 .checked_add(EpochTime::from(1))
-                .ok_or(ChainStorageError::OutOfRange)?;
+                .ok_or(ChainStorageError::UnexpectedResult("Timestamp overflowed".to_string()))?;
         }
         let mut block = Block { header, body };
         let roots = calculate_mmr_roots(&*db, self.rules(), &block)?;
