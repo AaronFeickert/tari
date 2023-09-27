@@ -76,7 +76,7 @@ pub fn calc_median_timestamp(timestamps: &[EpochTime]) -> EpochTime {
         // To make the linter happy, we use `u64::MAX` in the impossible case that the cast fails
         EpochTime::from(
             u64::try_from(
-                u128::from(timestamps[mid_index - 1].as_u64()) + u128::from(timestamps[mid_index].as_u64()) / 2,
+                (u128::from(timestamps[mid_index - 1].as_u64()) + u128::from(timestamps[mid_index].as_u64())) / 2,
             )
             .unwrap_or(u64::MAX),
         )

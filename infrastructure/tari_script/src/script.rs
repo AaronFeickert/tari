@@ -20,10 +20,7 @@ use std::{cmp::Ordering, collections::HashSet, convert::TryFrom, fmt, io, ops::D
 
 use blake2::Blake2b;
 use borsh::{BorshDeserialize, BorshSerialize};
-use digest::{
-    consts::U32,
-    Digest,
-};
+use digest::{consts::U32, Digest};
 use integer_encoding::{VarIntReader, VarIntWriter};
 use sha2::Sha256;
 use sha3::Sha3_256;
