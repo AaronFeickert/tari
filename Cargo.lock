@@ -5716,7 +5716,7 @@ dependencies = [
 [[package]]
 name = "tari_crypto"
 version = "0.18.0"
-source = "git+https://github.com/AaronFeickert/tari-crypto?branch=scalar-byte-array#e3279bfcb7a6c91875bd206dfb0d344b36f55a41"
+source = "git+https://github.com/tari-project/tari-crypto?branch=main#f9b6cb8f7a7c6a41373b935ac8293331422f2266"
 dependencies = [
  "blake2",
  "borsh",
