@@ -31,7 +31,7 @@ use tari_common_types::{
     types::{BlockHash, PublicKey},
 };
 use tari_comms::{peer_manager::NodeId, types::CommsPublicKey};
-use tari_utilities::hex::Hex;
+use tari_utilities::{hex::Hex, ByteArray};
 use thiserror::Error;
 use tokio::{runtime, runtime::Runtime};
 
@@ -46,11 +46,17 @@ pub fn setup_runtime() -> Result<Runtime, ExitError> {
 }
 
 /// Returns a CommsPublicKey from either a emoji id or a public key
+#[allow(clippy::else_if_without_else)]
 pub fn parse_emoji_id_or_public_key(key: &str) -> Option<CommsPublicKey> {
-    EmojiId::from_str(&key.trim().replace('|', ""))
-        .map(|emoji_id| PublicKey::from(&emoji_id))
-        .or_else(|_| CommsPublicKey::from_hex(key))
-        .ok()
+    if let Ok(emoji_id) = EmojiId::from_str(&key.trim().replace('|', "")) {
+        if let Ok(public_key) = PublicKey::from_canonical_bytes(emoji_id.as_bytes()) {
+            return Some(public_key);
+        }
+    } else if let Ok(public_key) = CommsPublicKey::from_hex(key) {
+        return Some(public_key);
+    }
+
+    None
 }
 
 /// Returns a hash from a hex string
@@ -78,16 +84,19 @@ pub struct UniPublicKey(PublicKey);
 impl FromStr for UniPublicKey {
     type Err = UniIdError;
 
+    #[allow(clippy::else_if_without_else)]
     fn from_str(key: &str) -> Result<Self, Self::Err> {
         if let Ok(emoji_id) = EmojiId::from_str(&key.trim().replace('|', "")) {
-            Ok(Self(PublicKey::from(&emoji_id)))
+            if let Ok(public_key) = PublicKey::from_canonical_bytes(emoji_id.as_bytes()) {
+                return Ok(Self(public_key));
+            }
         } else if let Ok(public_key) = PublicKey::from_hex(key) {
-            Ok(Self(public_key))
+            return Ok(Self(public_key));
         } else if let Ok(tari_address) = TariAddress::from_hex(key) {
-            Ok(Self(tari_address.public_key().clone()))
-        } else {
-            Err(UniIdError::UnknownIdType)
+            return Ok(Self(tari_address.public_key().clone()));
         }
+
+        Err(UniIdError::UnknownIdType)
     }
 }
 
@@ -115,18 +124,21 @@ pub enum UniIdError {
 impl FromStr for UniNodeId {
     type Err = UniIdError;
 
+    #[allow(clippy::else_if_without_else)]
     fn from_str(key: &str) -> Result<Self, Self::Err> {
         if let Ok(emoji_id) = EmojiId::from_str(&key.trim().replace('|', "")) {
-            Ok(Self::PublicKey(PublicKey::from(&emoji_id)))
+            if let Ok(public_key) = PublicKey::from_canonical_bytes(emoji_id.as_bytes()) {
+                return Ok(Self::PublicKey(public_key));
+            }
         } else if let Ok(public_key) = PublicKey::from_hex(key) {
-            Ok(Self::PublicKey(public_key))
+            return Ok(Self::PublicKey(public_key));
         } else if let Ok(node_id) = NodeId::from_hex(key) {
-            Ok(Self::NodeId(node_id))
+            return Ok(Self::NodeId(node_id));
         } else if let Ok(tari_address) = TariAddress::from_hex(key) {
-            Ok(Self::TariAddress(tari_address))
-        } else {
-            Err(UniIdError::UnknownIdType)
+            return Ok(Self::TariAddress(tari_address));
         }
+
+        Err(UniIdError::UnknownIdType)
     }
 }
 

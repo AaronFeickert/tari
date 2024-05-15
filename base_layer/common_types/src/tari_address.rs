@@ -34,7 +34,7 @@ use thiserror::Error;
 
 use crate::{
     dammsum::{compute_checksum, validate_checksum},
-    emoji::{EMOJI, REVERSE_EMOJI},
+    emoji::{BYTE_TO_EMOJI, EMOJI_TO_BYTE},
     types::PublicKey,
 };
 
@@ -74,7 +74,7 @@ impl TariAddress {
         // Convert the emoji string to a byte array
         let mut bytes = Vec::<u8>::with_capacity(INTERNAL_SIZE);
         for c in emoji.chars() {
-            if let Some(i) = REVERSE_EMOJI.get(&c) {
+            if let Some(i) = EMOJI_TO_BYTE.get(&c) {
                 bytes.push(*i);
             } else {
                 return Err(TariAddressError::InvalidEmoji);
@@ -114,7 +114,7 @@ impl TariAddress {
     pub fn to_emoji_string(&self) -> String {
         // Convert the public key to bytes and compute the checksum
         let bytes = self.to_bytes();
-        bytes.iter().map(|b| EMOJI[*b as usize]).collect::<String>()
+        bytes.iter().map(|b| BYTE_TO_EMOJI[*b as usize]).collect::<String>()
     }
 
     /// Return the public key of an Tari Address
@@ -332,7 +332,7 @@ mod test {
         bytes[0] = 1;
         let checksum = compute_checksum(&bytes[0..32]);
         bytes[32] = Network::Esmeralda.as_byte() ^ checksum;
-        let emoji_string = bytes.iter().map(|b| EMOJI[*b as usize]).collect::<String>();
+        let emoji_string = bytes.iter().map(|b| BYTE_TO_EMOJI[*b as usize]).collect::<String>();
 
         // This emoji string contains an invalid checksum
         assert_eq!(

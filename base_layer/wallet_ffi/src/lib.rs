@@ -119,7 +119,7 @@ use tari_common::{
     network_check::set_network_if_choice_valid,
 };
 use tari_common_types::{
-    emoji::emoji_set,
+    emoji::BYTE_TO_EMOJI,
     tari_address::{TariAddress, TariAddressError},
     transaction::{TransactionDirection, TransactionStatus, TxId},
     types::{ComAndPubSignature, Commitment, PublicKey, SignatureWithDomain},
@@ -8278,7 +8278,7 @@ pub unsafe extern "C" fn wallet_set_one_sided_payment_message(
 /// The ```emoji_set_destroy``` function must be called when finished with a ByteVector to prevent a memory leak
 #[no_mangle]
 pub unsafe extern "C" fn get_emoji_set() -> *mut EmojiSet {
-    let current_emoji_set = emoji_set();
+    let current_emoji_set = BYTE_TO_EMOJI;
     let mut emoji_set: Vec<ByteVector> = Vec::with_capacity(current_emoji_set.len());
     for emoji in &current_emoji_set {
         let mut b = [0; 4]; // emojis are 4 bytes, unicode character
@@ -9060,7 +9060,7 @@ mod test {
     fn test_emoji_set() {
         unsafe {
             let emoji_set = get_emoji_set();
-            let compare_emoji_set = emoji::emoji_set();
+            let compare_emoji_set = emoji::BYTE_TO_EMOJI;
             let mut error = 0;
             let error_ptr = &mut error as *mut c_int;
             let len = emoji_set_get_length(emoji_set, error_ptr);

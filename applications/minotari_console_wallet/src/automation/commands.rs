@@ -795,8 +795,8 @@ pub async fn command_runner(
                 }
             },
             Whois(args) => {
-                let public_key = args.public_key.into();
-                let emoji_id = EmojiId::from(&public_key).to_string();
+                let public_key: PublicKey = args.public_key.into();
+                let emoji_id = EmojiId::from(public_key.as_bytes()).to_string();
 
                 println!("Public Key: {}", public_key.to_hex());
                 println!("Emoji ID  : {}", emoji_id);

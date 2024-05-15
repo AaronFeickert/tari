@@ -81,7 +81,7 @@ impl CommandContext {
         };
 
         for peer in peers {
-            let eid = EmojiId::from(&peer.public_key).to_string();
+            let eid = EmojiId::from(peer.public_key.as_bytes()).to_string();
             println!("Emoji ID: {}", eid);
             println!("Public Key: {}", peer.public_key);
             println!("NodeId: {}", peer.node_id);
